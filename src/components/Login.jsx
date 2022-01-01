@@ -1,5 +1,7 @@
+import { useContext } from "react"
+import {LoginContext} from "../content/LoginContext"
 function Login() {
-    const AUTH_URL="http://localhost:3000/authorize?client_id=&response_type=code&redirect"
+    const {token,setToken}=useContext(LoginContext)
     return (
         <div>
             

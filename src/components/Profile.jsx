@@ -1,28 +1,54 @@
-import {useState,useEffect} from 'react'
+import {useState,useEffect,useContext} from 'react'
 import { useCallback } from 'react'
 import axios from 'axios'
 import Card from "./shared/Card"
-export default function Profile({token}) {
-    const[data,setData]=useState({})
-
-    const fetchData= useCallback(async()=>{
-        const {data} = await axios.get("https://api.spotify.com/v1/me",{
-            headers:{
-                Authorization:`Bearer ${token}`,
-            },
-            
-        })
-       setData(data)
-
-    },[])
+import ProfileItem from './ProfileItem'
+import LoginContext from '../content/LoginContext'
+export default function Profile() {
+    const {token}=useContext(LoginContext)
+    const[data,setData]=useState(null)
 
     useEffect(()=>{
-        fetchData()
-    },[fetchData])
+
+        let isSub=true;
+        
+        const fetchData= async()=>{
+            try{
+                const res = await fetch("https://api.spotify.com/v1/me",{
+                    method:'GET',
+                    headers:{
+                        Authorization:`Bearer ${token}`,
+                    },
+                    
+                })
+                
+                    const data = await res.json()
+
     
+                    setData(data)
+
+            }
+            catch(err){
+    console.log(err)
+            }
+
+           
+
+            
+    
+        }
+        fetchData()
+       
+    },[])
+
     return (
-        <div class="w-full">
-                <Card data={data}/>
+        <div className="w-full">
+                <Card 
+                id={data?.display_name} 
+                proPic={data?.images[0].url}
+                followers={data?.followers.total}
+                />
+                 <ProfileItem/>
         </div>
     )
 }
