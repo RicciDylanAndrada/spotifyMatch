@@ -3,9 +3,22 @@ import ProfileItem from '../components/ProfileItem';
 import SearchUser from '../components/SearchUser';
 import { useState,useEffect,useContext } from "react";
 import LoginContext from '../content/LoginContext';
-
+import Select from "@mui/material/Select";
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
 function Home() {
+  
+  const [isOpen,setIsOpen]=useState(false)
+  const [isOpenTime,setIsOpenTime]=useState(false)
+
     const{token,setToken}=useContext(LoginContext)
+    const[selectOption,setSelectOption]=useState(null)
+    const[selectOptionTime,setSelectOptionTime]=useState(null)
+
+const optionsTime=['Past 4 Days','Past 6 Months','All Time']
+const options=['10','25','50']
 
     const CLIENT_ID=process.env.REACT_APP_SPOTIFY_CLIENT_ID
     const REDIRECT_URL="http://localhost:3000/"
@@ -23,13 +36,29 @@ const scope=[
 ]
 console.log("duh")
 
-    
-    
+const toggling=()=>setIsOpen(!isOpen)
+const togglingTime=()=>setIsOpenTime(!isOpenTime)
+
+const handleChange = (event) => {
+  setSelectOption(event.target.value);
+};
+const handleChangeTime = (event) => {
+  setSelectOptionTime(event.target.value);
+};
+const onOptionClickTime=(value)=>{
+      setSelectOptionTime(value);
+      setIsOpenTime(false);
+      console.log(selectOptionTime)
+
+
+  }
+ 
       const handleLogout=()=>{
         setToken("")
         window.localStorage.removeItem("token")
     
-      }      
+      }   
+      
     return (
         <div>
 
@@ -53,35 +82,44 @@ console.log("duh")
         <div className="mx-auto grid gap-5 justify-items-center ">
         <h1>Top Songs</h1>
         <div className="grid grid-cols-2 gap-10  ">
-        <div className="dropdown dropdown-end ">
-        <div tabindex="0" class="m-1 btn">Top</div> 
-            <ul tabindex="0" class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
-                <li>
-                <a>10</a>
-                </li> 
-                <li>
-                <a>25</a>
-                </li> 
-                <li>
-                <a>50</a>
-                </li>
-            </ul>
-        </div>
+        
+        <Box className="dropdown dropdown-end"  sx={{  }}>
+      <FormControl  variant="standard" fullWidth>
+        <InputLabel id="demo-simple-select-label" sx={{color:'white'}}>Top</InputLabel>
+        <Select
+                sx={{color:"white",border:'none'}}
 
-        <div className="dropdown dropdown-end ">
-        <div tabindex="0" class="m-1 btn">Time Frame</div> 
-            <ul tabindex="0" class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
-                <li>
-                <a>Past 4 Weeks</a>
-                </li> 
-                <li>
-                <a onClick={console.log("clikc on here")}>Past 6 months</a>
-                </li> 
-                <li>
-                <a>All Time</a>
-                </li>
-            </ul>
-        </div>
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={selectOption}
+          label="Top"
+          onChange={handleChange}
+        >
+          <MenuItem  value={10}>10 Songs</MenuItem>
+          <MenuItem value={20}>25 Songs</MenuItem>
+          <MenuItem value={30}>50 Songs</MenuItem>
+        </Select>
+      </FormControl>
+    </Box>
+
+    <Box className="dropdown dropdown-end" sx={{ minWidth: 120, border:'none' }}>
+      <FormControl  variant="standard" fullWidth>
+        <InputLabel id="timeFrame" sx={{color:'white'}}>Past</InputLabel>
+        <Select
+                sx={{color:"white"}}
+
+          labelId="TimeFrame"
+          id="timeFrame"
+          value={selectOptionTime}
+          label="Top"
+          onChange={handleChangeTime}
+        >
+          <MenuItem  value={10}>4 Weeks</MenuItem>
+          <MenuItem value={20}>6 Months</MenuItem>
+          <MenuItem value={30}>All Time</MenuItem>
+        </Select>
+      </FormControl>
+    </Box>
         </div>
            
 
