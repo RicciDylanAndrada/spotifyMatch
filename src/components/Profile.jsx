@@ -43,7 +43,7 @@ export default function Profile() {
     if(token){
         return (
 
-            <div className="w-full">
+            <div className="w-full ">
                     <Card 
                     id={data?.profile?.display_name} 
                     proPic={data?.profile?.images[0].url}
