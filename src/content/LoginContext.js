@@ -7,7 +7,7 @@ export const LoginProvider=({children})=>{
   console.log("duh1")
 
     const [token,setToken]=useState(null)
-    const [ data,setData]=useState({profile:null,top:null})
+    const [ data,setData]=useState({profile:null,top:null,genre:null})
   useEffect(()=>{
     console.log("duh use effect")
     
@@ -33,11 +33,26 @@ export const LoginProvider=({children})=>{
                                   
                                                   },
                                               })
+                
+            const resGenre = await fetch("https://api.spotify.com/v1/recommendations/available-genre-seeds",
+                    {
+                            method:'GET',
+                              headers:{
+                                    Authorization:`Bearer ${token}`,
+                                                      
+                                    'Content-Type': 'application/json',
+                                      'Accept': 'application/json'
+                                  
+                                  
+                                                  },
+                                              })
     
                           const dataProfile = await resProfile.json()
                           const dataTop = await resTop.json()
+                          const dataGenre = await resGenre.json()
+
                           console.log(dataTop)
-                          setData({profile:dataProfile,top:dataTop})
+                          setData({profile:dataProfile,top:dataTop,genre:dataGenre})
                   }
                   catch(err){
           console.log(err)

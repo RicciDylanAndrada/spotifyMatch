@@ -48,7 +48,44 @@ console.log("duh")
             <button onClick ={handleLogout} className="btn btn-success">Logout</button>
 
             </div>
+            
         <Profile/>
+        <div className="mx-auto grid gap-5 justify-items-center ">
+        <h1>Top Songs</h1>
+        <div className="grid grid-cols-2 gap-10  ">
+        <div className="dropdown dropdown-end ">
+        <div tabindex="0" class="m-1 btn">Top</div> 
+            <ul tabindex="0" class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
+                <li>
+                <a>10</a>
+                </li> 
+                <li>
+                <a>25</a>
+                </li> 
+                <li>
+                <a>50</a>
+                </li>
+            </ul>
+        </div>
+
+        <div className="dropdown dropdown-end ">
+        <div tabindex="0" class="m-1 btn">Time Frame</div> 
+            <ul tabindex="0" class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
+                <li>
+                <a>Past 4 Weeks</a>
+                </li> 
+                <li>
+                <a onClick={console.log("clikc on here")}>Past 6 months</a>
+                </li> 
+                <li>
+                <a>All Time</a>
+                </li>
+            </ul>
+        </div>
+        </div>
+           
+
+        </div>
 
         <ProfileItem />
 
