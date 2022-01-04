@@ -71,7 +71,7 @@ const onOptionClickTime=(value)=>{
         
          ):
       (
-        <div className=" p-5 w-screen h-screen  grid grid-cols-1 xl:grid-cols-1 l:grid-cols-1
+        <div className=" p-5 max-w-full max-h-full grid grid-cols-1 xl:grid-cols-1 l:grid-cols-1
         md:grid-cols-1 gap-10 place-items-center ">
             <div className=" bg-red-50">
             <button onClick ={handleLogout} className="btn btn-success">Logout</button>
@@ -125,7 +125,7 @@ const onOptionClickTime=(value)=>{
 
         </div>
 
-        <ProfileItem />
+      <ProfileItem /> 
 
         </div>
       

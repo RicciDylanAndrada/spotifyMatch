@@ -4,9 +4,9 @@
 function Card({id,proPic,followers}) {
     
     return (
-        <div>
+        <div >
         
-            <div className="p-4 card shadow-xl compact side bg-base-100">
+            <div className="p-4 card  shadow-xl compact side bg-base-100">
                 <h2 className="flex justify-center mb-4"  > {id}</h2>
                 <div className="flex justify-center">
                     <img  className="rounded-full flex justify-center shadow w-32 h-32" src={proPic} ></img>

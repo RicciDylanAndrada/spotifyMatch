@@ -50,20 +50,17 @@ const handleTimeFrame=()=>{
 // },[])
 
 
-    console.log(genre)
 
     return (
-        <div className="w-full">
        
-        <div className="w-full  grid gap-4 grid-cols-1 content-between xl:grid-cols-3 l:grid-cols-3 m:grid-cols-2 s:grid-cols-3">
-        {!render? (
+        <div className="grid grid-cols-1 w-full h-full gap-10 m-0 xl:grid-cols-3 l:grid-cols-3 m:grid-cols-2 s:grid-cols-3">
+        {!render&& (
             render=true,
 
         top?.items.map((index)=>{
            return <SongCard name={index?.name} proPic={index?.album.images[2].url}/>
             })
-       ):<p>loading</p>} 
-        </div>
+       )} 
         </div>
     )
 }

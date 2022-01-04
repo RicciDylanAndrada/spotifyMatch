@@ -13,11 +13,10 @@ function App() {
   return (
     <LoginProvider>
     <Router>
-    <div className="flex flex-col justify-between h-screen">
+    <div  className="flex flex-col justify-between w-screen h-screen">
     <Navbar/>
 
     <main>
-      <h1>Main/Search</h1>
       <Routes>
       <Route path="/" element={ <Home/>}/>
       <Route path="/about" element= {<About />}/>
