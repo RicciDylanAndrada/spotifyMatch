@@ -14,8 +14,8 @@ function Home() {
   const [isOpenTime,setIsOpenTime]=useState(false)
 
     const{token,setToken}=useContext(LoginContext)
-    const[selectOption,setSelectOption]=useState(null)
-    const[selectOptionTime,setSelectOptionTime]=useState(null)
+    const[selectOption,setSelectOption]=useState("")
+    const[selectOptionTime,setSelectOptionTime]=useState("")
 
 const optionsTime=['Past 4 Days','Past 6 Months','All Time']
 const options=['10','25','50']
@@ -58,7 +58,7 @@ const onOptionClickTime=(value)=>{
         window.localStorage.removeItem("token")
     
       }   
-      
+      console.log(selectOption,selectOptionTime)
     return (
         <div>
 
@@ -96,8 +96,8 @@ const onOptionClickTime=(value)=>{
           onChange={handleChange}
         >
           <MenuItem  value={10}>10 Songs</MenuItem>
-          <MenuItem value={20}>25 Songs</MenuItem>
-          <MenuItem value={30}>50 Songs</MenuItem>
+          <MenuItem value={25}>25 Songs</MenuItem>
+          <MenuItem value={50}>50 Songs</MenuItem>
         </Select>
       </FormControl>
     </Box>
@@ -114,9 +114,9 @@ const onOptionClickTime=(value)=>{
           label="Top"
           onChange={handleChangeTime}
         >
-          <MenuItem  value={10}>4 Weeks</MenuItem>
-          <MenuItem value={20}>6 Months</MenuItem>
-          <MenuItem value={30}>All Time</MenuItem>
+          <MenuItem  value={"short_term"}>4 Weeks</MenuItem>
+          <MenuItem value={"medium_term"}>6 Months</MenuItem>
+          <MenuItem value={"long_term"}>All Time</MenuItem>
         </Select>
       </FormControl>
     </Box>
@@ -125,7 +125,7 @@ const onOptionClickTime=(value)=>{
 
         </div>
 
-      <ProfileItem /> 
+      <ProfileItem top={selectOption} time={selectOptionTime} /> 
 
         </div>
       
