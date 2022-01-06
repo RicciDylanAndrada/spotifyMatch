@@ -83,7 +83,9 @@ export const LoginProvider=({children})=>{
   },[token,top,setTop,time,setTime])
 
   
-       
+  const handleCreatePlaylist=()=>{
+console.log("clicked")
+  }
 
   return(
     
@@ -93,7 +95,7 @@ export const LoginProvider=({children})=>{
        setToken,
        data,
        setTop,
-       setTime
+       setTime,handleCreatePlaylist
        }}>
         {children}
     </LoginContext.Provider>

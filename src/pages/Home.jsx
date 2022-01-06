@@ -8,14 +8,17 @@ import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
+import CardForm from '../components/shared/CardForm';
+
 function Home() {
   
   const [isOpen,setIsOpen]=useState(false)
   const [isOpenTime,setIsOpenTime]=useState(false)
 
-    const{token,setToken,setTop,setTime}=useContext(LoginContext)
+    const{token,setToken,setTop,setTime,handleCreatePlaylist}=useContext(LoginContext)
     const[selectOption,setSelectOption]=useState("")
     const[selectOptionTime,setSelectOptionTime]=useState("")
+    const[showForm,setShowForm]=useState(false);
 
 const optionsTime=['Past 4 Days','Past 6 Months','All Time']
 const options=['10','25','50']
@@ -35,7 +38,9 @@ const scope=[
 
 ]
 console.log("duh")
-
+const handleShowForm=()=>{
+  setShowForm(!showForm);
+}
 const toggling=()=>setIsOpen(!isOpen)
 const togglingTime=()=>setIsOpenTime(!isOpenTime)
 
@@ -75,16 +80,16 @@ const onOptionClickTime=(value)=>{
       (
         <div className=" p-5 max-w-full max-h-full grid grid-cols-1 xl:grid-cols-1 l:grid-cols-1
         md:grid-cols-1 gap-10 place-items-center ">
-            <div className=" bg-red-50">
+            <div className="">
             <button onClick ={handleLogout} className="btn btn-success">Logout</button>
-
             </div>
             
         <Profile/>
-        <div className="mx-auto grid gap-5 justify-items-center ">
-        <h1>Top Songs</h1>
-        <div className="grid grid-cols-2 gap-10  ">
-        
+        <div className="mx-auto grid gap-5 justify-items-center w-full ">
+        <h1 className="inline" >Top Songs</h1>
+        <div className="grid grid-cols-3 w-full ">
+        <div className=""></div>
+        <div className=" justify-self-center grid    grid-cols-2 gap-10  ">
         <Box className="dropdown dropdown-end"  sx={{  }}>
       <FormControl  variant="standard" fullWidth>
         <InputLabel id="demo-simple-select-label" sx={{color:'white'}}>Top</InputLabel>
@@ -122,10 +127,27 @@ const onOptionClickTime=(value)=>{
         </Select>
       </FormControl>
     </Box>
+    </div>
+    <div className="w-30 justify-self-end">
+    <button className="btn btn-success" onClick={handleShowForm} >Create Playlist</button>
+        
+    </div>
+        
+    
         </div>
+        </div>
+       
+
+
+       
+        {showForm&&(
+      <div className="grid grid-cols-1  ">
+    <CardForm/>
+
+    </div>
+        )}
            
 
-        </div>
 
       <ProfileItem  /> 
 
