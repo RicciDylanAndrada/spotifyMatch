@@ -8,6 +8,10 @@ export const LoginProvider=({children})=>{
 
     const [token,setToken]=useState(null)
     const [ data,setData]=useState({profile:null,top:null,genre:null})
+    const[top,setTop]=useState(null)
+    const[time,setTime]=useState(null)
+    console.log(top)
+
   useEffect(()=>{
     console.log("duh use effect")
     
@@ -21,7 +25,8 @@ export const LoginProvider=({children})=>{
                      Authorization:`Bearer ${token}`,
                           },                     
                       })
-            const resTop = await fetch("https://api.spotify.com/v1/me/top/tracks?limit=50",
+                      console.log(top)
+            const resTop = await fetch("https://api.spotify.com/v1/me/top/tracks?limit="+(top?top:"50")+"&offset=0&time_range="+(time?time:"medium_term"),
                     {
                             method:'GET',
                               headers:{
@@ -75,7 +80,7 @@ export const LoginProvider=({children})=>{
           console.log("checkign here for fire")
     }
     
-  },[token])
+  },[token,top,setTop,time,setTime])
 
   
        
@@ -86,7 +91,9 @@ export const LoginProvider=({children})=>{
      value={{
        token,
        setToken,
-       data
+       data,
+       setTop,
+       setTime
        }}>
         {children}
     </LoginContext.Provider>

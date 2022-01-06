@@ -13,7 +13,7 @@ function Home() {
   const [isOpen,setIsOpen]=useState(false)
   const [isOpenTime,setIsOpenTime]=useState(false)
 
-    const{token,setToken}=useContext(LoginContext)
+    const{token,setToken,setTop,setTime}=useContext(LoginContext)
     const[selectOption,setSelectOption]=useState("")
     const[selectOptionTime,setSelectOptionTime]=useState("")
 
@@ -59,6 +59,8 @@ const onOptionClickTime=(value)=>{
     
       }   
       console.log(selectOption,selectOptionTime)
+      setTop(selectOption)
+      setTime(selectOptionTime)
     return (
         <div>
 
@@ -125,7 +127,7 @@ const onOptionClickTime=(value)=>{
 
         </div>
 
-      <ProfileItem top={selectOption} time={selectOptionTime} /> 
+      <ProfileItem  /> 
 
         </div>
       
