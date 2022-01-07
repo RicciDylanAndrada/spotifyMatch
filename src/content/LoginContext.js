@@ -10,6 +10,7 @@ export const LoginProvider=({children})=>{
     const [ data,setData]=useState({profile:null,top:null,genre:null})
     const[top,setTop]=useState(null)
     const[time,setTime]=useState(null)
+    const[newPlaylist,setNewPlaylist]=useState({name:"", description:""})
     console.log(top)
 
   useEffect(()=>{
@@ -95,7 +96,9 @@ console.log("clicked")
        setToken,
        data,
        setTop,
-       setTime,handleCreatePlaylist
+       setTime,handleCreatePlaylist,
+       newPlaylist,
+       setNewPlaylist
        }}>
         {children}
     </LoginContext.Provider>
