@@ -88,10 +88,9 @@ export const LoginProvider=({children})=>{
   },[token,top,setTop,time,setTime,newPlaylist,setNewPlaylist])
 
   
-  const handleCreatePlaylist=async()=>{
-console.log(data.id)
+const handleCreatePlaylist=async()=>{
+  try{
     if(newPlaylist.name !== null && newPlaylist.description!==null){
-
       const  d = await fetch("https://api.spotify.com/v1/users/"+data.id+"/playlists",
       {
               method:'POST',
@@ -113,13 +112,13 @@ console.log(data.id)
 
     const response = await d.json()
     setRes(response)
-    console.log()
-
+    if(res?.id){
     let id = res.id
+    console.log(id)
     let track =data?.top?.items.map((item)=>item.uri)
     console.log(track)
 
-    const  tracks = await fetch(`https://api.spotify.com/v1/playlists/${id}/tracks`,
+    const  tracks = await fetch(`https://api.spotify.com/v1/playlists/${response.id}/tracks`,
       {
               method:'POST',
                 headers:{
@@ -136,11 +135,20 @@ console.log(data.id)
 
 
     )
+    let withSongs = await tracks.json()
+    console.log(withSongs)
+              }
     
 
   }
+  
     
   }
+  catch(err){
+    console.log(err)
+  }
+   
+}
 
 
   return(
@@ -156,6 +164,7 @@ console.log(data.id)
        setNewPlaylist,
        handleCreatePlaylist,
        res,
+       setRes
        }}>
         {children}
     </LoginContext.Provider>

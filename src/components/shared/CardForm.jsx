@@ -17,6 +17,7 @@ const handleSubmit=(e)=>{
         console.log(newPlaylist)
         setSubmit(true)
         handleCreatePlaylist()
+        setNewPlaylist({name:'',description:""})
 
 
 }
