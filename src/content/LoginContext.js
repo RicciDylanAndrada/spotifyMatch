@@ -7,15 +7,16 @@ export const LoginProvider=({children})=>{
   console.log("duh1")
 
     const [token,setToken]=useState(null)
-    const [ data,setData]=useState({profile:null,top:null,genre:null})
+    const [ data,setData]=useState({profile:null,top:null,genre:null,id:null})
     const[top,setTop]=useState(null)
     const[time,setTime]=useState(null)
-    const[newPlaylist,setNewPlaylist]=useState({name:"", description:""})
-    console.log(top)
+    const[newPlaylist,setNewPlaylist]=useState({name:null, description:null})
+    const[res,setRes]=useState(null)
 
   useEffect(()=>{
     console.log("duh use effect")
-    
+    console.log(newPlaylist)
+
 
     if(token){
       const fetchProfile= async ()=>{
@@ -52,13 +53,16 @@ export const LoginProvider=({children})=>{
                                   
                                                   },
                                               })
-    
+                                              console.log("firing")
+                                              console.log(newPlaylist)
+
+            
                           const dataProfile = await resProfile.json()
                           const dataTop = await resTop.json()
                           const dataGenre = await resGenre.json()
 
                           console.log(dataTop)
-                          setData({profile:dataProfile,top:dataTop,genre:dataGenre})
+                          setData({profile:dataProfile,top:dataTop,genre:dataGenre,id:dataProfile.id})
                   }
                   catch(err){
           console.log(err)
@@ -81,12 +85,63 @@ export const LoginProvider=({children})=>{
           console.log("checkign here for fire")
     }
     
-  },[token,top,setTop,time,setTime])
+  },[token,top,setTop,time,setTime,newPlaylist,setNewPlaylist])
 
   
-  const handleCreatePlaylist=()=>{
-console.log("clicked")
+  const handleCreatePlaylist=async()=>{
+console.log(data.id)
+    if(newPlaylist.name !== null && newPlaylist.description!==null){
+
+      const  d = await fetch("https://api.spotify.com/v1/users/"+data.id+"/playlists",
+      {
+              method:'POST',
+                headers:{
+                      Authorization:`Bearer ${token}`,
+                                        
+                    
+                          },
+              body: JSON.stringify({
+                            "name": `${newPlaylist.name}`,
+                            "description": `${newPlaylist.description}`
+                          })
+                
+                }
+
+
+
+    )
+
+    const response = await d.json()
+    setRes(response)
+    console.log()
+
+    let id = res.id
+    let track =data?.top?.items.map((item)=>item.uri)
+    console.log(track)
+
+    const  tracks = await fetch(`https://api.spotify.com/v1/playlists/${id}/tracks`,
+      {
+              method:'POST',
+                headers:{
+                      Authorization:`Bearer ${token}`,
+                                        
+                    
+                          },
+              body: JSON.stringify({
+                            "uris": track,
+                          })
+                
+                }
+
+
+
+    )
+    
+
   }
+    
+  }
+
 
   return(
     
@@ -98,7 +153,9 @@ console.log("clicked")
        setTop,
        setTime,handleCreatePlaylist,
        newPlaylist,
-       setNewPlaylist
+       setNewPlaylist,
+       handleCreatePlaylist,
+       res,
        }}>
         {children}
     </LoginContext.Provider>

@@ -39,7 +39,6 @@ export default function Profile() {
     //     fetchData()
        
     // },[])
-    console.log("hello")
     if(token){
         return (
 

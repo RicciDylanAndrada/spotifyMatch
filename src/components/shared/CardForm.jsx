@@ -7,16 +7,17 @@ import { Button, CardActionArea, CardActions } from '@mui/material';
 import LoginContext from '../../content/LoginContext';
 function CardForm() {
 
+    const[submit,setSubmit]=useState(false)
 
-
-    const{newPlaylist,setNewPlaylist}=useContext(LoginContext)
-    const [name,setName] =useState("")
-    const [pub,setPub] =useState("")
-    const [desc,setDesc] =useState("")
+    const{newPlaylist,setNewPlaylist,handleCreatePlaylist,res}=useContext(LoginContext)
+    
 
 const handleSubmit=(e)=>{
         e.preventDefault()
         console.log(newPlaylist)
+        setSubmit(true)
+        handleCreatePlaylist()
+
 
 }
 const handleChange=(e)=>{
@@ -28,6 +29,7 @@ const handleChange=(e)=>{
     })
     
 }
+console.log(res)
     return (
        
             
@@ -36,28 +38,40 @@ const handleChange=(e)=>{
   <div class="card glass lg:card-side 	">
     
     <div class="max-w-md  card-body">
-    <form className="block  	" onSubmit={handleSubmit}>
+    {!submit?(
+        <form className="block  	" onSubmit={handleSubmit}>
                                 
-            <label className="block  m-5 ">
-                                Name
-                            <input className="ml-4 text-black" type="text " defaultValue={newPlaylist.name} name="name" onChange={handleChange} />
-                                        </label>
-                                {/* <label className="block">
-                                  Public
-                                    <input type="text" name="name" value={newPlaylist.} />
-                                </label> */}
+                                <label className="block  m-5 ">
+                                                    Name
+                                                <input className="ml-4 text-black" type="text " defaultValue={newPlaylist.name} name="name" onChange={handleChange} />
+                                                            </label>
+                                                    {/* <label className="block">
+                                                      Public
+                                                        <input type="text" name="name" value={newPlaylist.} />
+                                                    </label> */}
+                    
+                                                    <label className=" ml-4 block ">
+                                                    Description
+                                                        <input className= "ml-4 text-black"  type="text" name="description" defaultValue={newPlaylist.description} onChange={handleChange} />
+                                                    </label>
+                                                    <div className="grid  grid-cols-1 w-full m-3 justify-items-center ">
+                                                    <div className=" w-full mr-6 flex justify-center">
+                                                    <button className="  btn btn-success" value="Create" type="submit">Create Playlist</button>
+                    
+                                                    </div>
+                                    </div>
+                                            </form>
+    ):
+    
+    (<div className="grid grid-cols-1">
+    <h1>Playlist Succesfully Create!</h1>
+    <a className="justify-self-center btn btn-success mt-4 hover:bg-green-300" href={res?.external_urls?.spotify} >Go To Playlist</a>
 
-                                <label className=" ml-4 block ">
-                                Description
-                                    <input className= "ml-4 text-black"  type="text" name="description" defaultValue={newPlaylist.description} onChange={handleChange} />
-                                </label>
-                                <div className="grid  grid-cols-1 w-full m-3 justify-items-center ">
-                                <div className=" w-full mr-6 flex justify-center">
-                                <button className="  btn btn-success" value="Create" type="submit">Create Playlist</button>
-
-                                </div>
-                </div>
-                        </form>
+    </div>
+    
+    )
+    }
+    
     </div>
   </div>
 </div>
