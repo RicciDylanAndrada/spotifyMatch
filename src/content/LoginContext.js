@@ -4,7 +4,6 @@ const LoginContext =createContext()
 
 
 export const LoginProvider=({children})=>{
-  console.log("duh1")
 
     const [token,setToken]=useState(null)
     const [ data,setData]=useState({profile:null,top:null,genre:null,id:null})
@@ -14,8 +13,6 @@ export const LoginProvider=({children})=>{
     const[res,setRes]=useState(null)
 
   useEffect(()=>{
-    console.log("duh use effect")
-    console.log(newPlaylist)
 
 
     if(token){
@@ -27,7 +24,6 @@ export const LoginProvider=({children})=>{
                      Authorization:`Bearer ${token}`,
                           },                     
                       })
-                      console.log(top)
             const resTop = await fetch("https://api.spotify.com/v1/me/top/tracks?limit="+(top?top:"50")+"&offset=0&time_range="+(time?time:"medium_term"),
                     {
                             method:'GET',
@@ -53,15 +49,13 @@ export const LoginProvider=({children})=>{
                                   
                                                   },
                                               })
-                                              console.log("firing")
-                                              console.log(newPlaylist)
+                                           
 
             
                           const dataProfile = await resProfile.json()
                           const dataTop = await resTop.json()
                           const dataGenre = await resGenre.json()
 
-                          console.log(dataTop)
                           setData({profile:dataProfile,top:dataTop,genre:dataGenre,id:dataProfile.id})
                   }
                   catch(err){
@@ -79,13 +73,11 @@ export const LoginProvider=({children})=>{
             token = hash.substring(1).split("&").find(elem=>elem.startsWith("access_token")).split("=")[1]
             window.location.hash=""
             window.localStorage.setItem("token",token)
-            console.log(token)
           }
           setToken(token)
-          console.log("checkign here for fire")
     }
     
-  },[token,top,setTop,time,setTime,newPlaylist,setNewPlaylist])
+  },[token,top,setTop,time,setTime,newPlaylist,setNewPlaylist,res,setRes])
 
   
 const handleCreatePlaylist=async()=>{
@@ -105,18 +97,11 @@ const handleCreatePlaylist=async()=>{
                           })
                 
                 }
-
-
-
     )
-
     const response = await d.json()
     setRes(response)
-    if(res?.id){
-    let id = res.id
-    console.log(id)
+    if(response.id){
     let track =data?.top?.items.map((item)=>item.uri)
-    console.log(track)
 
     const  tracks = await fetch(`https://api.spotify.com/v1/playlists/${response.id}/tracks`,
       {
@@ -136,7 +121,6 @@ const handleCreatePlaylist=async()=>{
 
     )
     let withSongs = await tracks.json()
-    console.log(withSongs)
               }
     
 

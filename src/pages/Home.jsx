@@ -20,8 +20,7 @@ function Home() {
     const[selectOptionTime,setSelectOptionTime]=useState("")
     const[showForm,setShowForm]=useState(false);
 
-const optionsTime=['Past 4 Days','Past 6 Months','All Time']
-const options=['10','25','50']
+
 
     const CLIENT_ID=process.env.REACT_APP_SPOTIFY_CLIENT_ID
     const REDIRECT_URL="http://localhost:3000/"
@@ -37,12 +36,9 @@ const scope=[
   "user-read-recently-played"
 
 ]
-console.log("duh")
 const handleShowForm=()=>{
   setShowForm(!showForm);
 }
-const toggling=()=>setIsOpen(!isOpen)
-const togglingTime=()=>setIsOpenTime(!isOpenTime)
 
 const handleChange = (event) => {
   setSelectOption(event.target.value);
@@ -53,7 +49,6 @@ const handleChangeTime = (event) => {
 const onOptionClickTime=(value)=>{
       setSelectOptionTime(value);
       setIsOpenTime(false);
-      console.log(selectOptionTime)
 
 
   }
@@ -61,11 +56,14 @@ const onOptionClickTime=(value)=>{
       const handleLogout=()=>{
         setToken("")
         window.localStorage.removeItem("token")
+        
     
       }   
-      console.log(selectOption,selectOptionTime)
-      setTop(selectOption)
-      setTime(selectOptionTime)
+      useEffect(()=>{
+        setTop(selectOption)
+        setTime(selectOptionTime)
+      },[setTop,setTime,])
+    
     return (
         <div>
 

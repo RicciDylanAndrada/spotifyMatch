@@ -14,7 +14,7 @@ function CardForm() {
 
 const handleSubmit=(e)=>{
         e.preventDefault()
-        console.log(newPlaylist)
+        //console.log(newPlaylist)
         setSubmit(true)
         handleCreatePlaylist()
         setNewPlaylist({name:'',description:""})
@@ -35,10 +35,10 @@ console.log(res)
        
             
 
-<div class="flex items-center w-full px-4 py-10 card " >
-  <div class="card glass lg:card-side 	">
+<div className="flex items-center w-full px-4 py-10 card " >
+  <div className="card glass lg:card-side 	">
     
-    <div class="max-w-md  card-body">
+    <div className="max-w-md  card-body">
     {!submit?(
         <form className="block  	" onSubmit={handleSubmit}>
                                 

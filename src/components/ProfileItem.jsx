@@ -58,7 +58,7 @@ const handleTimeFrame=()=>{
             render=true,
 
         top?.items.map((index)=>{
-           return <SongCard name={index?.name} proPic={index?.album.images[2].url}/>
+           return <SongCard key={index?.id} name={index?.name} proPic={index?.album.images[2].url}/>
             })
        )} 
         </div>
