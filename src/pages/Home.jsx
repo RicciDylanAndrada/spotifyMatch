@@ -15,7 +15,7 @@ function Home() {
   const [isOpen,setIsOpen]=useState(false)
   const [isOpenTime,setIsOpenTime]=useState(false)
 
-    const{token,setToken,setTop,setTime,handleCreatePlaylist}=useContext(LoginContext)
+    const{token,setToken,setTop,setTime,handleCreatePlaylist,loading}=useContext(LoginContext)
     const[selectOption,setSelectOption]=useState("")
     const[selectOptionTime,setSelectOptionTime]=useState("")
     const[showForm,setShowForm]=useState(false);
@@ -53,16 +53,9 @@ const onOptionClickTime=(value)=>{
 
   }
  
-      const handleLogout=()=>{
-        setToken("")
-        window.localStorage.removeItem("token")
-        
-    
-      }   
-      useEffect(()=>{
+      
         setTop(selectOption)
         setTime(selectOptionTime)
-      },[setTop,setTime,])
     
     return (
         <div>
@@ -75,12 +68,17 @@ const onOptionClickTime=(value)=>{
       </div>
         
          ):
-      (
-        <div className=" p-5 max-w-full max-h-full grid grid-cols-1 xl:grid-cols-1 l:grid-cols-1
-        md:grid-cols-1 gap-10 place-items-center ">
-            <div className="">
-            <button onClick ={handleLogout} className="btn btn-success">Logout</button>
+         !loading?(
+            <div className="grid grid-cols-1 ">
+            <button className="btn btn-lg loading justify-self-center">loading</button> 
+
             </div>
+
+         )
+ :
+         (
+           <div className=" p-5 max-w-full max-h-full grid grid-cols-1 xl:grid-cols-1 l:grid-cols-1 md:grid-cols-1 gap-10 place-items-center ">
+           
             
         <Profile/>
         <div className="mx-auto grid gap-5 justify-items-center w-full ">
@@ -96,7 +94,7 @@ const onOptionClickTime=(value)=>{
 
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={selectOption}
+          value={selectOption}_
           label="Top"
           onChange={handleChange}
         >
@@ -151,9 +149,13 @@ const onOptionClickTime=(value)=>{
 
         </div>
       
-      )}
+      )
+}
+
+       
+
+        
         </div>
     )
 }
-
 export default Home

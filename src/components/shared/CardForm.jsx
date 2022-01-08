@@ -14,7 +14,6 @@ function CardForm() {
 
 const handleSubmit=(e)=>{
         e.preventDefault()
-        //console.log(newPlaylist)
         setSubmit(true)
         handleCreatePlaylist()
         setNewPlaylist({name:'',description:""})
@@ -30,7 +29,6 @@ const handleChange=(e)=>{
     })
     
 }
-console.log(res)
     return (
        
             

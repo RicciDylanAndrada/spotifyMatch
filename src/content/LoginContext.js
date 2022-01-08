@@ -11,6 +11,7 @@ export const LoginProvider=({children})=>{
     const[time,setTime]=useState(null)
     const[newPlaylist,setNewPlaylist]=useState({name:null, description:null})
     const[res,setRes]=useState(null)
+    const[loading,setLoading]=useState(false)
 
   useEffect(()=>{
 
@@ -57,6 +58,8 @@ export const LoginProvider=({children})=>{
                           const dataGenre = await resGenre.json()
 
                           setData({profile:dataProfile,top:dataTop,genre:dataGenre,id:dataProfile.id})
+                          setLoading(true)
+
                   }
                   catch(err){
           console.log(err)
@@ -133,6 +136,12 @@ const handleCreatePlaylist=async()=>{
   }
    
 }
+const handleLogout=()=>{
+  setToken("")
+  window.localStorage.removeItem("token")
+  
+
+}   
 
 
   return(
@@ -148,7 +157,10 @@ const handleCreatePlaylist=async()=>{
        setNewPlaylist,
        handleCreatePlaylist,
        res,
-       setRes
+       setRes,
+       handleLogout,
+       loading,
+       setLoading
        }}>
         {children}
     </LoginContext.Provider>

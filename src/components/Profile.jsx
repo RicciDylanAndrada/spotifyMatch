@@ -15,7 +15,9 @@ export default function Profile() {
                     id={data?.profile?.display_name} 
                     proPic={data?.profile?.images[0]?.url}
                     followers={data?.profile?.followers?.total}
+                    link = {data?.profile?.external_urls?.spotify}
                     />
+                    
             </div>
         )
     }

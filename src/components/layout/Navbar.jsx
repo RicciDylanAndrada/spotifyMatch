@@ -1,6 +1,17 @@
 import {FaSpotify} from "react-icons/fa"
 import {Link} from 'react-router-dom' 
+import {useContext} from 'react'
+
+import LoginContext from '../../content/LoginContext'
+
 export default function Navbar() {
+    const{setToken}=useContext(LoginContext)
+    const handleLogout=()=>{
+        setToken("")
+        window.localStorage.removeItem("token")
+        
+      
+      }   
     return (
         
         <div className="navbar  w-full mb-12 bg-neutral text-neutral-content">
@@ -23,6 +34,9 @@ export default function Navbar() {
 
             </div>
         </div>
+        <div className="justify-self-end ">
+            <button onClick ={handleLogout} className="btn btn-sm btn-success h-30">Logout</button>
+            </div>
         </div>
         
     )
